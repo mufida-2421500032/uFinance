@@ -1,0 +1,819 @@
+/* ============================================
+   REUSABLE UI COMPONENTS — uFinance
+   Use these classes across ALL pages.
+   ============================================ */
+
+/* — Reset (owned by layout.css) — */
+a { color: inherit; text-decoration: none; }
+
+/* ============================================
+   TOOLTIP — Portal Component (Floating UI)
+   ============================================ */
+.u-tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: max-content;
+  max-width: 260px;
+  padding: 6px 12px;
+  background: var(--text-primary);
+  color: var(--bg);
+  font-family: var(--font-main);
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.4;
+  border-radius: var(--radius-tooltip);
+  z-index: var(--z-tooltip);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  pointer-events: none;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateY(4px);
+}
+.u-tooltip[data-placement="bottom"] { transform: translateY(-4px); }
+.u-tooltip[data-placement="left"]   { transform: translateX(4px); }
+.u-tooltip[data-placement="right"]  { transform: translateX(-4px); }
+.u-tooltip.visible {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+.u-tooltip-arrow {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--text-primary);
+  transform: rotate(45deg);
+}
+
+/* — Scrollbar — */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+/* ============================================
+   u-card  —  Rounded surface card
+   ============================================ */
+.u-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.u-card--interactive {
+  transition: transform var(--transition), box-shadow var(--transition);
+  cursor: default;
+}
+.u-card--interactive:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ============================================
+   u-panel  —  Static container (no hover)
+   ============================================ */
+.u-panel {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+
+/* ============================================
+   u-metric  —  Metric display card
+   ============================================ */
+.u-metric__label {
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: var(--space-sm);
+}
+.u-metric__value {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+/* ============================================
+   u-btn  —  Button system
+   ============================================ */
+.u-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: var(--space-sm) var(--space-lg);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-main);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  min-height: 40px;
+  white-space: nowrap;
+}
+.u-btn--primary {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(255, 45, 120, 0.3);
+}
+.u-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 45, 120, 0.4);
+}
+.u-btn--secondary {
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+.u-btn--secondary:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+.u-btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+  padding: 8px 12px;
+}
+.u-btn--ghost:hover {
+  background: var(--surface-hover);
+  color: var(--primary);
+}
+.u-btn--danger {
+  background: var(--color-expense-bg);
+  color: var(--color-expense);
+  border: 1px solid transparent;
+}
+.u-btn--danger:hover {
+  background: var(--color-expense);
+  color: #fff;
+}
+.u-btn--icon {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-secondary);
+  font-size: 16px;
+}
+.u-btn--icon:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.u-btn--sm {
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-sm);
+  min-height: 32px;
+  border-radius: var(--radius-xs);
+}
+.u-btn--dashed {
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  color: var(--text-secondary);
+  width: 100%;
+}
+.u-btn--dashed:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  background: var(--surface-hover);
+}
+
+/* ============================================
+   u-badge  —  Status pills
+   ============================================ */
+.u-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+}
+.u-badge--active {
+  background: var(--color-income-bg);
+  color: var(--color-income);
+}
+.u-badge--inactive, .u-badge--expired {
+  background: var(--color-expense-bg);
+  color: var(--color-expense);
+}
+.u-badge--income {
+  background: var(--color-income-bg);
+  color: var(--color-income-text);
+}
+.u-badge--expense {
+  background: var(--color-expense-bg);
+  color: var(--color-expense-text);
+}
+.u-badge--auto {
+  background: var(--gradient-secondary);
+  color: #fff;
+}
+.u-badge--manual {
+  background: var(--surface-hover);
+  color: var(--secondary);
+  border: 1px solid var(--secondary-light);
+}
+.u-badge--primary {
+  background: rgba(255, 45, 120, 0.1);
+  color: var(--primary);
+}
+
+/* ============================================
+   u-input / u-select / u-textarea — Form controls
+   ============================================ */
+.u-input, .u-select, .u-textarea {
+  width: 100%;
+  padding: var(--space-md) var(--space-lg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: var(--font-size-md);
+  min-height: 44px;
+  outline: none;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.u-input:focus, .u-select:focus, .u-textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(255, 45, 120, 0.1);
+}
+.u-textarea { min-height: 88px; resize: vertical; }
+.u-label {
+  display: grid;
+  gap: 6px;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ============================================
+   u-progress  —  Progress bar
+   ============================================ */
+.u-progress {
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.u-progress--sm { height: 6px; }
+.u-progress--lg { height: 12px; }
+.u-progress__fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--gradient-primary);
+  transition: width 0.5s ease;
+}
+.u-progress__fill--secondary {
+  background: var(--gradient-secondary);
+}
+
+/* ============================================
+   u-alert  —  Status alerts
+   ============================================ */
+.u-alert {
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  margin-bottom: var(--space-xl);
+}
+.u-alert--safe {
+  background: var(--color-income-bg);
+  color: var(--color-income);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+}
+.u-alert--warning {
+  background: var(--color-expense-bg);
+  color: var(--color-expense);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+}
+.u-alert--neutral {
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
+
+/* ============================================
+   u-modal  —  Modal overlay + dialog
+   ============================================ */
+.u-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  visibility: hidden;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal-backdrop);
+  padding: var(--space-lg);
+  opacity: 0;
+  transition: opacity var(--transition-slow), visibility var(--transition-slow);
+}
+.u-modal-overlay.open {
+  visibility: visible;
+  opacity: 1;
+}
+.u-modal {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: var(--space-2xl);
+  width: min(520px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-lg);
+  transform: scale(0.96);
+  transition: transform var(--transition-slow);
+}
+.u-modal-overlay.open .u-modal {
+  transform: scale(1);
+}
+.u-modal__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: var(--space-xl);
+}
+.u-modal__title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  margin: 0;
+}
+.u-modal__footer {
+  display: flex;
+  gap: 10px;
+  margin-top: var(--space-xl);
+}
+
+/* ============================================
+   u-table  —  Modern table
+   ============================================ */
+.u-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.u-table th, .u-table td {
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--border);
+  font-size: var(--font-size-md);
+  word-break: break-word;
+}
+.u-table th {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.u-table tr:last-child td { border-bottom: none; }
+.u-table tr:hover td { background: var(--surface-hover); }
+
+/* ============================================
+   u-empty / u-loading  —  Empty & loading states
+   ============================================ */
+.u-empty, .u-loading {
+  padding: var(--space-2xl);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: var(--font-size-md);
+  background: var(--surface-alt);
+  border-radius: var(--radius-sm);
+  border: 1px dashed var(--border);
+}
+
+/* ============================================
+   u-form-grid  —  Form layout
+   ============================================ */
+.u-form-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-lg);
+  align-items: end;
+}
+
+/* ============================================
+   u-type-toggle  —  Income/Expense toggle
+   ============================================ */
+.u-type-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.u-type-toggle .u-btn.active {
+  background: var(--gradient-primary);
+  color: #fff;
+  border-color: transparent;
+}
+
+/* ============================================
+   u-row-actions  —  Inline action buttons
+   ============================================ */
+.u-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ============================================
+   u-section-header  —  Section title bar
+   ============================================ */
+.u-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+}
+.u-section-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ============================================
+   u-tx-item  —  Dashboard transaction list item
+   ============================================ */
+.u-tx-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+  border: 1px solid var(--border-light);
+  transition: all var(--transition);
+  font-size: var(--font-size-md);
+}
+.u-tx-item:hover {
+  border-color: var(--secondary-light);
+  background: var(--surface-hover);
+}
+.u-tx-amount {
+  font-weight: 700;
+  margin-left: auto;
+}
+.u-tx-meta {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+.u-tx-date {
+  color: var(--text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* ============================================
+   u-goal-mini  —  Dashboard goal progress
+   ============================================ */
+.u-goal-mini {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.u-goal-mini__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+.u-goal-mini__pct {
+  font-size: var(--font-size-sm);
+  font-weight: 700;
+  color: var(--secondary);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-in { animation: fadeIn 0.4s ease forwards; }
+.delay-1 { animation-delay: 0.05s; opacity: 0; }
+.delay-2 { animation-delay: 0.1s; opacity: 0; }
+.delay-3 { animation-delay: 0.15s; opacity: 0; }
+.delay-4 { animation-delay: 0.2s; opacity: 0; }
+.delay-5 { animation-delay: 0.25s; opacity: 0; }
+
+/* ============================================
+   MATERIAL ICONS
+   ============================================ */
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: 'liga';
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+.icon-sm { font-size: 18px; }
+.icon-lg { font-size: 28px; }
+.icon-xl { font-size: 36px; }
+
+/* ============================================
+   THEME CUSTOMIZER PANEL
+   ============================================ */
+.theme-customizer {
+  position: fixed;
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  width: min(380px, calc(100vw - var(--space-lg) * 2));
+  max-height: calc(100vh - var(--space-lg) * 2);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  z-index: var(--z-panel);
+  padding: 0;
+  transform: translateY(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform var(--transition-slow), opacity var(--transition-slow);
+}
+.theme-customizer.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+.theme-customizer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-xl);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  background: var(--surface);
+  z-index: var(--z-inner);
+}
+.theme-customizer__head h3 {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.theme-customizer__body {
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+.theme-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+.theme-section__title {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  margin: 0;
+}
+/* Color presets */
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+}
+.preset-btn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  cursor: pointer;
+  font-family: var(--font-main);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+}
+.preset-btn:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+.preset-btn.active {
+  border-color: var(--primary);
+  background: rgba(255, 45, 120, 0.05);
+  color: var(--primary);
+}
+.preset-swatch {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 1px solid rgba(0,0,0,0.1);
+  flex-shrink: 0;
+}
+/* Custom color pickers */
+.color-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+}
+.color-row label {
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+  flex: 1;
+  display: block;
+  text-transform: none;
+}
+.color-row input[type="color"] {
+  width: 36px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 2px;
+  cursor: pointer;
+  background: transparent;
+  min-height: auto;
+}
+/* Font selector */
+.font-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+}
+.font-btn {
+  padding: var(--space-sm) var(--space-md);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: all var(--transition);
+  text-align: center;
+}
+.font-btn:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+}
+.font-btn.active {
+  border-color: var(--secondary);
+  background: rgba(124, 58, 237, 0.05);
+  color: var(--secondary);
+  font-weight: 700;
+}
+.font-preview {
+  padding: var(--space-lg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+  line-height: 1.5;
+}
+.font-preview strong {
+  display: block;
+  font-size: var(--font-size-3xl);
+  margin-bottom: 4px;
+}
+/* Theme action buttons */
+.theme-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+  padding: var(--space-lg) var(--space-xl);
+  border-top: 1px solid var(--border);
+  position: sticky;
+  bottom: 0;
+  background: var(--surface);
+}
+/* FAB button */
+.theme-fab {
+  position: fixed;
+  right: var(--space-lg);
+  bottom: var(--space-lg);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--gradient-secondary);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-fab);
+  transition: all var(--transition);
+  font-family: 'Material Symbols Rounded';
+  font-size: 24px;
+  font-variation-settings: 'FILL' 1;
+}
+.theme-fab:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgba(124, 58, 237, 0.45);
+}
+.theme-fab.hidden { display: none; }
+
+/* ============================================
+   ICON ALIGNMENT HELPERS
+   ============================================ */
+/* Deprecated icon-in-h1 and icon-in-h2 - handled by layout.css flex h1/h2 */
+
+/* ============================================
+   SECTION SPACING UTILITIES
+   ============================================ */
+.u-mt-section { margin-top: var(--space-2xl); }
+.u-mb-section { margin-bottom: var(--space-2xl); }
+
+/* ============================================
+   GOAL CARD  —  Goals page rendered items
+   ============================================ */
+.u-goal-card__header {
+  margin-bottom: var(--space-md);
+}
+.u-goal-card__name {
+  margin: 0;
+  font-size: var(--font-size-md);
+}
+.u-goal-card__meta {
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  margin-bottom: var(--space-md);
+}
+.u-goal-card__pct {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--secondary);
+  text-align: right;
+  margin-top: var(--space-xs);
+}
+.u-goal-card__actions {
+  margin-top: var(--space-md);
+}
+.u-goal-card__topup {
+  flex: 1;
+  min-height: 32px;
+  height: 32px;
+  padding: var(--space-xs) var(--space-md);
+  font-size: var(--font-size-sm);
+}
+
+/* ============================================
+   METRIC CARD EXTRAS
+   ============================================ */
+.u-metric__progress {
+  margin-top: var(--space-md);
+}
+.u-metric__note {
+  margin: var(--space-lg) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}
+
+/* ============================================
+   PERIOD CARD EXTRAS
+   ============================================ */
+.period-card__body {
+  margin-top: var(--space-md);
+  color: var(--text-secondary);
+}
+.period-card__elapsed {
+  margin-top: var(--space-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+}

@@ -1,0 +1,613 @@
+/* ============================================
+   LAYOUT — uFinance
+   Page structure, sidebar, grids, calendar,
+   period cards, responsive breakpoints.
+   ============================================ */
+
+/* — App Shell — */
+.app-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr;
+}
+
+/* — Sidebar — */
+.sidebar {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  padding: var(--space-xl);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  overflow: visible;
+  transition: background var(--transition-slow), border-color var(--transition-slow);
+}
+
+/* — Base — */
+*, *::before, *::after { box-sizing: border-box; }
+html { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--text-primary);
+  transition: background var(--transition-slow), color var(--transition-slow);
+}
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-lg) var(--space-md);
+  font-weight: 700;
+  font-size: var(--font-size-xl);
+  color: var(--primary);
+  margin-bottom: var(--space-sm);
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--gradient-primary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.brand-icon .material-symbols-rounded {
+  font-size: 20px;
+  color: #fff;
+}
+
+/* — Navigation — */
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+}
+
+.nav a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  transition: all var(--transition);
+  border: none;
+  background: none;
+  box-shadow: none;
+  min-height: auto;
+}
+
+.nav a:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+.nav a.active {
+  background: var(--gradient-primary);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(255, 45, 120, 0.3);
+}
+
+.nav-icon {
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* — Sidebar Footer — */
+.sidebar-footer {
+  margin-top: auto;
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.theme-switch {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-sm);
+  background: var(--surface-alt);
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border: 1px solid var(--border);
+  transition: all var(--transition);
+}
+.theme-switch:hover {
+  border-color: var(--primary);
+  color: var(--primary);
+}
+.theme-switch-icon {
+  font-size: 18px;
+}
+
+/* — Main Content — */
+.content {
+  padding: var(--space-xl);
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* — Topbar — */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.topbar h1 {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* — Page Header — */
+.page-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.page-title {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  margin: 0;
+}
+
+/* — Greeting Card — */
+.greeting-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xl);
+  background: var(--gradient-mixed);
+  padding: var(--space-xl);
+  margin-bottom: var(--space-xl);
+  border-radius: var(--radius);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(255, 45, 120, 0.2);
+  border: none;
+}
+
+.greeting-label {
+  font-size: var(--font-size-base);
+  font-weight: 400;
+  display: block;
+  opacity: 0.85;
+}
+
+.greeting-name {
+  font-size: var(--font-size-2xl);
+  font-weight: 700;
+  display: block;
+}
+
+.greeting-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  font-size: var(--font-size-base);
+  opacity: 0.9;
+}
+
+.btn-edit-name {
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  width: 28px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0;
+  font-size: 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  color: #fff;
+  box-shadow: none;
+  transition: background var(--transition);
+}
+.btn-edit-name:hover {
+  background: rgba(255, 255, 255, 0.35);
+  color: #fff;
+}
+
+/* — User Greeting Inline — */
+.user-greeting-inline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  padding: var(--space-sm) var(--space-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-xs);
+  color: var(--text-primary);
+}
+
+/* — Grid Utilities — */
+.grid { display: grid; gap: var(--space-xl); }
+.cards { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+.two-col { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+/* — Headings — */
+h1, h2, h3, p { margin-top: 0; }
+h1 { font-size: var(--font-size-2xl); line-height: 1.2; font-weight: 700; display: flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-xl); }
+h2 { font-size: var(--font-size-lg); font-weight: 700; margin-bottom: var(--space-lg); color: var(--text-primary); display: flex; align-items: center; gap: var(--space-sm); }
+/* Remove margin-bottom from h2 when inside a card/panel header position */
+.u-panel > h2:first-child,
+.u-card > h2:first-child { margin-bottom: var(--space-md); }
+
+/* ============================================
+   PERIOD CARD
+   ============================================ */
+.period-card {
+  background: var(--surface);
+  border-radius: var(--radius);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border);
+}
+.period-card.period-muted { background: var(--surface-alt); }
+.period-card.period-expired { background: var(--color-expense-bg); border-color: rgba(239, 68, 68, 0.2); }
+
+.period-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+.period-head h2 { margin-bottom: 0; }
+
+.period-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-md);
+  margin: var(--space-md) 0;
+  flex-wrap: wrap;
+  font-size: var(--font-size-md);
+  color: var(--text-secondary);
+}
+
+.period-bar-track {
+  height: 8px;
+  background: var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  border: none;
+}
+.period-bar-fill {
+  height: 100%;
+  background: var(--gradient-primary);
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.period-duration-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.period-form { display: grid; gap: var(--space-lg); }
+
+.period-inline {
+  grid-column: 1 / -1;
+  padding: var(--space-lg);
+  background: var(--surface-alt);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.period-warning,
+.inline-error {
+  color: var(--color-expense);
+  font-size: var(--font-size-base);
+}
+
+.period-linked-warning {
+  padding: var(--space-lg);
+  margin-bottom: var(--space-lg);
+  background: var(--color-warning-bg);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+}
+
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+/* ============================================
+   CALENDAR
+   ============================================ */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-sm);
+}
+
+.calendar-grid strong {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-muted);
+  padding: var(--space-sm) 0;
+}
+
+.cal-day {
+  border-radius: var(--radius-sm);
+  padding: var(--space-sm);
+  min-height: 92px;
+  background: var(--surface);
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+  color: var(--text-primary);
+  border: 1px solid var(--border);
+  box-shadow: none;
+  font-family: var(--font-main);
+  font-size: var(--font-size-md);
+  transition: all var(--transition);
+}
+
+.cal-day:hover {
+  border-color: var(--primary);
+  box-shadow: var(--shadow);
+}
+
+.cal-day.muted {
+  opacity: 0.35;
+  border-color: var(--border-light);
+  pointer-events: none;
+}
+
+.cal-day.has-income:not(.has-expense) { border-left: 3px solid var(--color-income); }
+.cal-day.has-expense:not(.has-income) { border-left: 3px solid var(--color-expense); }
+.cal-day.has-income.has-expense { border-left: 3px solid var(--color-income); border-right: 3px solid var(--color-expense); }
+
+.cal-day.net-positive { background: var(--color-income-bg); }
+.cal-day.net-negative { background: var(--color-expense-bg); }
+.cal-day.net-positive:hover,
+.cal-day.net-negative:hover { box-shadow: var(--shadow-md); }
+
+.cal-date {
+  display: block;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+}
+
+.cal-day.today {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(255, 45, 120, 0.2);
+}
+
+.cal-day.today .cal-date {
+  background: var(--gradient-primary);
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+}
+
+.cal-badges {
+  margin-top: var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cal-badge {
+  display: block;
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  padding: 2px 5px;
+  border-radius: var(--radius-xs);
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cal-badge.income {
+  color: var(--color-income-text);
+  background: var(--color-income-bg);
+}
+.cal-badge.expense {
+  color: var(--color-expense-text);
+  background: var(--color-expense-bg);
+}
+
+.cal-day:hover .cal-badge.income {
+  background: var(--color-income);
+  color: #fff;
+}
+.cal-day:hover .cal-badge.expense {
+  background: var(--color-expense);
+  color: #fff;
+}
+
+.cal-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-bottom: var(--space-lg);
+}
+.cal-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.legend-box {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+  display: inline-block;
+}
+.legend-box.net-positive { background: var(--color-income-bg); border: 1px solid var(--color-income); }
+.legend-box.net-negative { background: var(--color-expense-bg); border: 1px solid var(--color-expense); }
+
+/* ============================================
+   CALENDAR DAY MODAL SECTIONS
+   ============================================ */
+.modal-section {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-lg);
+  overflow: hidden;
+}
+.modal-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-md) var(--space-lg);
+  font-weight: 600;
+  font-size: var(--font-size-md);
+}
+.modal-section-header.income { background: var(--color-income-bg); color: var(--color-income-text); }
+.modal-section-header.expense { background: var(--color-expense-bg); color: var(--color-expense-text); }
+
+.modal-list {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+}
+.modal-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-xs);
+  background: var(--surface-alt);
+  font-size: var(--font-size-md);
+}
+.modal-item.income { border-left: 3px solid var(--color-income); }
+.modal-item.expense { border-left: 3px solid var(--color-expense); }
+.modal-item-label { flex: 1; overflow-wrap: anywhere; }
+.modal-item-amount { white-space: nowrap; font-weight: 700; }
+
+.modal-net {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-lg);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: var(--font-size-md);
+}
+.modal-net.positive { background: var(--color-income-bg); color: var(--color-income-text); }
+.modal-net.negative { background: var(--color-expense-bg); color: var(--color-expense-text); }
+
+/* ============================================
+   NAME MODAL (injected by theme.js)
+   (Now uses standard .u-modal components)
+   ============================================ */
+
+/* ============================================
+   TABLE WRAP (for transactions page)
+   ============================================ */
+.table-wrap { overflow-x: auto; }
+
+/* ============================================
+   CANVAS (Chart.js)
+   ============================================ */
+canvas {
+  width: 100% !important;
+  max-height: 320px;
+}
+
+
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .app-shell { grid-template-columns: 1fr; }
+  .sidebar {
+    position: static;
+    height: auto;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: var(--space-lg);
+    gap: var(--space-sm);
+  }
+  .sidebar .brand { margin-bottom: 0; }
+  .sidebar .nav { flex-direction: row; flex-wrap: wrap; gap: 4px; flex: 1; }
+  .sidebar-footer { margin-top: 0; border-top: none; padding-top: 0; flex-direction: row; flex-shrink: 0; }
+  .sidebar-footer .theme-switch { white-space: nowrap; }
+  .nav, .cards, .two-col, .u-form-grid, .page-header-row, .greeting-card { grid-template-columns: 1fr; }
+  .page-header-row, .greeting-card { align-items: flex-start; flex-direction: column; }
+  .content { padding: var(--space-lg); }
+  .calendar-grid { gap: 4px; }
+  .cal-day { min-height: 60px; padding: 4px; }
+  .cal-badges { display: none; }
+}
+
+/* — Phone: icon-only sidebar nav, prevent multi-row wrapping — */
+@media (max-width: 600px) {
+  .sidebar { padding: var(--space-sm); gap: 4px; }
+  .brand { padding: var(--space-sm) var(--space-md); font-size: var(--font-size-lg); }
+  .nav a {
+    font-size: 0;           /* hides text node */
+    padding: var(--space-sm);
+    min-width: 36px;
+    justify-content: center;
+    gap: 0;
+  }
+  .nav a .nav-icon {
+    font-size: 22px;
+    width: auto;
+  }
+  .sidebar-footer .theme-switch-label { display: none; }
+  .sidebar-footer .theme-switch { justify-content: center; padding: var(--space-sm); }
+  .cal-day { min-height: 40px; padding: 2px; }
+  .cal-date { font-size: var(--font-size-xs); }
+  .content { padding: var(--space-md); }
+}
