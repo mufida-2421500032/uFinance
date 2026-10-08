@@ -36,14 +36,34 @@ Buka phpMyAdmin -> tab SQL, lalu jalankan isi `database/create_database.sql`
 
 ## 7. Jalankan
     php artisan serve
-Buka http://127.0.0.1:8000
+Buka http://127.0.0.1:8000 — Anda akan diarahkan ke halaman **Masuk**.
+Klik **Daftar** untuk membuat akun pertama. Setiap akun hanya melihat datanya sendiri.
+
+## Sudah pernah menjalankan versi tanpa login? (upgrade)
+1. Salin ulang isi zip ke project (timpa file yang ada).
+2. Jalankan:
+
+       php artisan migrate
+       php artisan optimize:clear
+
+3. Buka http://127.0.0.1:8000/register dan buat akun Anda.
+4. Pindahkan data lama (yang belum punya pemilik) ke akun itu:
+
+       php artisan ufinance:claim-data email@anda.com
+
+   Perintah ini aman dijalankan ulang; hanya data tanpa pemilik yang dipindahkan.
 
 ## Memindahkan data lama (opsional)
 Di phpMyAdmin, export database lama `personal_finance` -> Custom -> centang
 **hanya "Data"** (tanpa struktur). Import ke database `db_ufinance` SETELAH `migrate`.
 Nama kolom sama persis. Jika kategori lama ikut diimpor, jalankan `migrate` TANPA `--seed`.
+Setelah itu daftar akun, lalu jalankan `php artisan ufinance:claim-data email@anda.com`
+agar data hasil import menjadi milik akun Anda.
 
 ## Troubleshooting
 - **419 / CSRF token mismatch** -> `php artisan optimize:clear`, lalu hard-refresh browser.
 - **Access denied / Unknown database** -> cek DB_* di .env, lalu `php artisan config:clear`.
+- **Setelah login balik lagi ke halaman Masuk** -> pastikan `SESSION_DRIVER=database` dan
+  `php artisan migrate` sudah dijalankan (tabel `sessions` dibuat oleh migrate), lalu `php artisan config:clear`.
+- **Data lama tidak muncul setelah upgrade** -> jalankan `php artisan ufinance:claim-data email@anda.com`.
 - **Error `could not find driver`** -> aktifkan ekstensi `pdo_mysql` di php.ini.

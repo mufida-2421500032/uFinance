@@ -6,6 +6,7 @@ use App\Http\Controllers\Concerns\RespondsWithJson;
 use App\Models\Transaction;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
@@ -17,6 +18,7 @@ class TransactionController extends Controller
         $query = DB::table('transactions as t')
             ->leftJoin('categories as c', 'c.id', '=', 't.category_id')
             ->selectRaw('t.id, t.type, CAST(t.amount AS DECIMAL(15,2)) AS amount, t.date, t.category_id, c.name AS category, t.note')
+            ->where('t.user_id', Auth::id())
             ->orderByDesc('t.date')
             ->orderByDesc('t.id');
 

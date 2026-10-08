@@ -611,3 +611,6 @@ canvas {
   .cal-date { font-size: var(--font-size-xs); }
   .content { padding: var(--space-md); }
 }
+
+/* Form logout di sidebar: anak-anaknya ikut tata letak .sidebar-footer */
+.sidebar-footer form { display: contents; }

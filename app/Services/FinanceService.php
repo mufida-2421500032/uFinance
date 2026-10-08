@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\FinancialPeriod;
 use DateTimeImmutable;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class FinanceService
@@ -14,7 +15,7 @@ class FinanceService
         $row = DB::table('transactions')->selectRaw("
             COALESCE(SUM(CASE WHEN type = 'income'  THEN amount ELSE 0 END), 0) AS income,
             COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0) AS expense
-        ")->first();
+        ")->where('user_id', Auth::id())->first();
 
         return ['income' => (float) $row->income, 'expense' => (float) $row->expense];
     }

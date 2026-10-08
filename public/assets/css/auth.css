@@ -1,0 +1,43 @@
+/* Halaman Masuk / Daftar */
+html, body { min-height: 100%; }
+body.auth-body {
+  margin: 0;
+  font-family: var(--font-main);
+  background: var(--bg);
+  color: var(--text-primary);
+}
+*, *::before, *::after { box-sizing: border-box; }
+
+.auth-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+  background:
+    radial-gradient(900px 400px at 85% -10%, rgba(124, 58, 237, 0.12), transparent 60%),
+    radial-gradient(700px 380px at 0% 110%, rgba(255, 45, 120, 0.10), transparent 60%),
+    var(--bg);
+}
+.auth-card { width: 100%; max-width: 420px; padding: 32px; }
+
+.auth-brand {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 22px; font-weight: 700; margin-bottom: 6px;
+}
+.auth-brand-icon {
+  width: 42px; height: 42px; border-radius: 12px;
+  display: grid; place-items: center;
+  background: var(--gradient-mixed); color: #fff;
+}
+.auth-title { margin: 18px 0 4px; font-size: 20px; font-weight: 700; }
+.auth-sub { margin: 0 0 20px; color: var(--text-secondary); font-size: var(--font-size-md, 14px); }
+
+.auth-form { display: grid; gap: 14px; }
+.auth-check { display: flex; align-items: center; gap: 8px; font-size: var(--font-size-base); color: var(--text-secondary); }
+.auth-form .u-btn { width: 100%; justify-content: center; min-height: 44px; }
+.auth-error { margin: 0 0 14px; }
+.auth-error ul { margin: 0; padding-left: 18px; }
+.auth-foot { margin: 18px 0 0; text-align: center; color: var(--text-secondary); font-size: var(--font-size-base); }
+.auth-foot a { color: var(--primary); font-weight: 600; text-decoration: none; }
+.auth-foot a:hover { text-decoration: underline; }

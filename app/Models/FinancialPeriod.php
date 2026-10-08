@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use App\Models\Concerns\SerializesPlainDates;
+use App\Models\Concerns\BelongsToUser;
 use Illuminate\Database\Eloquent\Model;
 
 class FinancialPeriod extends Model
 {
-    use SerializesPlainDates;
+    use BelongsToUser, SerializesPlainDates;
 
     protected $fillable = [
         'start_date', 'end_date', 'total_days', 'budget_mode',

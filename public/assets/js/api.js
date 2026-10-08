@@ -12,6 +12,11 @@ async function request(path, options = {}) {
       ...(options.headers || {}),
     },
   });
+  if (response.status === 401 || response.status === 419) {
+    // Sesi login habis -> kembali ke halaman login
+    window.location.href = (window.APP && window.APP.loginUrl) || '/login';
+    throw new Error('Sesi berakhir. Silakan masuk kembali.');
+  }
   let payload = null;
   try { payload = await response.json(); } catch (e) { /* bukan JSON */ }
   if (!response.ok || !payload || payload.status === 'error') {

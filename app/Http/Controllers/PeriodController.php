@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Concerns\RespondsWithJson;
 use App\Models\FinancialPeriod;
+use App\Models\Transaction;
 use App\Services\FinanceService;
 use DateTimeImmutable;
 use Illuminate\Http\JsonResponse;
@@ -113,13 +114,19 @@ class PeriodController extends Controller
             $dailyBudget = null;
         }
 
+        $linkedIncomeId = empty($data['linked_income_id']) ? null : (int) $data['linked_income_id'];
+        // Transaction otomatis terfilter ke milik pengguna yang login.
+        if ($linkedIncomeId !== null && !Transaction::whereKey($linkedIncomeId)->exists()) {
+            $this->fail('Transaksi pemasukan yang dipilih tidak ditemukan.', 422);
+        }
+
         return [
             'start_date'       => $start,
             'end_date'         => $end,
             'total_days'       => $totalDays,
             'budget_mode'      => $mode,
             'daily_budget'     => $dailyBudget,
-            'linked_income_id' => empty($data['linked_income_id']) ? null : (int) $data['linked_income_id'],
+            'linked_income_id' => $linkedIncomeId,
         ];
     }
 }

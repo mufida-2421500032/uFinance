@@ -123,13 +123,18 @@ function toggleTheme() {
 
 // ========== USER NAME ==========
 function getUserName() {
-  const settings = loadSettings();
-  return settings.user?.name?.trim() || null;
+  // Nama bawaan = nama akun yang login. Nama yang diedit manual disimpan per akun
+  // (supaya tidak tertukar kalau beberapa akun memakai browser yang sama).
+  const accountName = (window.APP && window.APP.userName || '').trim();
+  const uid = window.APP && window.APP.userId;
+  const user = loadSettings().user || {};
+  if (uid && String(user.owner) !== String(uid)) return accountName || null;
+  return user.name?.trim() || accountName || null;
 }
 
 function saveUserName(name) {
   const settings = loadSettings();
-  settings.user = { name: name.trim().slice(0, 30) };
+  settings.user = { name: name.trim().slice(0, 30), owner: (window.APP && window.APP.userId) || null };
   saveSettings(settings);
 }
 

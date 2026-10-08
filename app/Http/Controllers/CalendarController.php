@@ -6,6 +6,7 @@ use App\Http\Controllers\Concerns\RespondsWithJson;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CalendarController extends Controller
@@ -30,6 +31,7 @@ class CalendarController extends Controller
                 COALESCE(SUM(CASE WHEN type = 'expense' THEN amount ELSE 0 END), 0) AS total_expense,
                 COALESCE(SUM(CASE WHEN type = 'income' THEN amount WHEN type = 'expense' THEN -amount ELSE 0 END), 0) AS net
             ")
+            ->where('user_id', Auth::id())
             ->whereBetween('date', [$start->toDateString(), $end->toDateString()])
             ->groupBy('date')
             ->orderBy('date')

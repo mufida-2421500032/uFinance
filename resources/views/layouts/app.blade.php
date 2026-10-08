@@ -38,6 +38,13 @@
           <span class="theme-switch-label">Dark Mode</span>
           <span class="material-symbols-rounded theme-switch-icon">dark_mode</span>
         </button>
+        <form method="POST" action="{{ route('logout') }}">
+          @csrf
+          <button class="theme-switch" type="submit" data-tooltip="Masuk sebagai {{ auth()->user()->email }}" data-tooltip-pos="right">
+            <span class="theme-switch-label">Logout</span>
+            <span class="material-symbols-rounded theme-switch-icon">logout</span>
+          </button>
+        </form>
       </div>
     </aside>
     <main class="content">
@@ -46,7 +53,14 @@
   </div>
   @yield('modals')
 
-  <script>window.APP = { apiBase: @json(url('/api')) };</script>
+  <script>
+    window.APP = {
+      apiBase: @json(url('/api')),
+      loginUrl: @json(route('login')),
+      userId: @json(auth()->id()),
+      userName: @json(auth()->user()->name),
+    };
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/@floating-ui/core@1.6.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.6.3"></script>
   @stack('vendor')
