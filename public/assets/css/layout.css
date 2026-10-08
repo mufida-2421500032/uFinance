@@ -566,23 +566,8 @@ canvas {
    RESPONSIVE
    ============================================ */
 @media (max-width: 900px) {
-  .app-shell { grid-template-columns: 1fr; }
-  .sidebar {
-    position: static;
-    height: auto;
-    border-right: 0;
-    border-bottom: 1px solid var(--border);
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    padding: var(--space-lg);
-    gap: var(--space-sm);
-  }
-  .sidebar .brand { margin-bottom: 0; }
-  .sidebar .nav { flex-direction: row; flex-wrap: wrap; gap: 4px; flex: 1; }
-  .sidebar-footer { margin-top: 0; border-top: none; padding-top: 0; flex-direction: row; flex-shrink: 0; }
-  .sidebar-footer .theme-switch { white-space: nowrap; }
-  .nav, .cards, .two-col, .u-form-grid, .page-header-row, .greeting-card { grid-template-columns: 1fr; }
+  .app-shell { grid-template-columns: minmax(0, 1fr); }
+  .nav, .cards, .two-col, .u-form-grid, .page-header-row, .greeting-card { grid-template-columns: minmax(0, 1fr); }
   .page-header-row, .greeting-card { align-items: flex-start; flex-direction: column; }
   .content { padding: var(--space-lg); }
   .calendar-grid { gap: 4px; }
@@ -590,23 +575,8 @@ canvas {
   .cal-badges { display: none; }
 }
 
-/* — Phone: icon-only sidebar nav, prevent multi-row wrapping — */
+/* — Phone — */
 @media (max-width: 600px) {
-  .sidebar { padding: var(--space-sm); gap: 4px; }
-  .brand { padding: var(--space-sm) var(--space-md); font-size: var(--font-size-lg); }
-  .nav a {
-    font-size: 0;           /* hides text node */
-    padding: var(--space-sm);
-    min-width: 36px;
-    justify-content: center;
-    gap: 0;
-  }
-  .nav a .nav-icon {
-    font-size: 22px;
-    width: auto;
-  }
-  .sidebar-footer .theme-switch-label { display: none; }
-  .sidebar-footer .theme-switch { justify-content: center; padding: var(--space-sm); }
   .cal-day { min-height: 40px; padding: 2px; }
   .cal-date { font-size: var(--font-size-xs); }
   .content { padding: var(--space-md); }
@@ -616,6 +586,177 @@ canvas {
 .sidebar-footer form { display: contents; }
 /* Kelas sendiri (bukan .theme-switch-*) supaya teks/ikon tidak ditimpa theme.js */
 .logout-icon { font-size: 18px; }
-@media (max-width: 600px) {
-  .sidebar-footer .logout-label { display: none; }
+
+/* ============================================
+   RESPONSIVE FIXES
+   ============================================ */
+
+/* Konten tidak boleh melebar melebihi layar (penyebab layout "jebol" di HP) */
+.content { min-width: 0; }
+@media (max-width: 900px) {
+  .app-shell { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* — Tabel transaksi (layar lebar) —
+   Teks tidak boleh patah di tengah kata ("expens-e", "400.00-0"). */
+.table-wrap .u-table td,
+.table-wrap .u-table th { word-break: normal; white-space: nowrap; }
+.table-wrap .u-table .col-note { white-space: normal; min-width: 180px; overflow-wrap: anywhere; }
+.table-wrap .u-table .u-row-actions { flex-wrap: nowrap; }
+.table-wrap .u-table .u-badge { white-space: nowrap; }
+
+/* — Tabel transaksi di HP: tiap baris menjadi satu kartu — */
+@media (max-width: 700px) {
+  .table-wrap { overflow-x: visible; }
+  .table-wrap .u-table,
+  .table-wrap .u-table tbody,
+  .table-wrap .u-table tr,
+  .table-wrap .u-table td { display: block; width: 100%; }
+  .table-wrap .u-table thead { display: none; }
+
+  .table-wrap .u-table tr {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-alt);
+    padding: var(--space-xs) var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+  .table-wrap .u-table tr:hover td { background: transparent; }
+
+  .table-wrap .u-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-sm) 0;
+    border-bottom: 1px dashed var(--border);
+    text-align: right;
+    white-space: normal;
+  }
+  .table-wrap .u-table td:last-child { border-bottom: 0; }
+  .table-wrap .u-table td::before {
+    content: attr(data-label);
+    flex-shrink: 0;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-align: left;
+  }
+  /* Baris "Loading..." / "No transactions yet." tidak punya label */
+  .table-wrap .u-table td:not([data-label]) { display: block; text-align: center; }
+  .table-wrap .u-table td:not([data-label])::before { display: none; }
+
+  .table-wrap .u-table .col-note { min-width: 0; }
+  .table-wrap .u-table .col-action { justify-content: flex-end; }
+  .table-wrap .u-table .col-action::before { display: none; }
+}
+
+
+/* ============================================
+   MENU HAMBURGER (HP & tablet, <= 900px)
+   Bilah atas: hamburger + logo.
+   Menu lengkap: panel vertikal yang meluncur dari kiri.
+   ============================================ */
+.mobile-bar,
+.sidebar-backdrop,
+.sidebar-close { display: none; }
+
+@media (max-width: 900px) {
+  :root { --mobile-bar-h: 56px; }
+  body { padding-top: var(--mobile-bar-h); }
+  .app-shell { min-height: calc(100vh - var(--mobile-bar-h)); }
+
+  .mobile-bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--mobile-bar-h);
+    z-index: 40;
+    padding: 0 var(--space-md);
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+  }
+  .mobile-bar .brand { margin: 0; padding: 0; font-size: var(--font-size-lg); }
+
+  .menu-toggle,
+  .sidebar-close {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--surface-alt);
+    color: var(--text-primary);
+    cursor: pointer;
+  }
+  .menu-toggle:hover,
+  .sidebar-close:hover { background: var(--surface-hover); }
+
+  /* Sidebar berubah jadi panel di sisi kiri */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100%;
+    width: min(290px, 85vw);
+    z-index: 60;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform 0.25s ease, visibility 0s linear 0.25s,
+                background var(--transition-slow), border-color var(--transition-slow);
+  }
+  .sidebar.is-open {
+    transform: translateX(0);
+    visibility: visible;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
+    transition: transform 0.25s ease, visibility 0s,
+                background var(--transition-slow), border-color var(--transition-slow);
+  }
+  .sidebar-close {
+    position: absolute;
+    top: calc(var(--space-lg) - 2px);
+    right: var(--space-md);
+  }
+
+  /* Latar gelap di belakang panel */
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    background: rgba(15, 12, 30, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+  }
+  body.menu-open .sidebar-backdrop {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.25s ease;
+  }
+  body.menu-open { overflow: hidden; }
+}
+
+
+/* ============================================
+   ANTI GESER KIRI-KANAN (HP & tablet)
+   ============================================ */
+@media (max-width: 900px) {
+  /* Isi kartu/panel boleh mengecil, tidak memaksa kolom melebar */
+  .grid > *, .u-panel, .u-card, .greeting-card, .u-alert { min-width: 0; max-width: 100%; }
+  .u-panel, .u-card { overflow-wrap: anywhere; }
+  .u-panel canvas { max-width: 100%; }
+  /* Jaring pengaman terakhir: halaman tidak pernah bisa digeser ke samping */
+  html { overflow-x: hidden; }
 }

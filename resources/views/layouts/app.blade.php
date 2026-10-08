@@ -22,8 +22,23 @@
   <link rel="stylesheet" href="{{ asset('assets/css/layout.css') }}">
 </head>
 <body>
+  {{-- Bilah atas khusus HP/tablet: tombol hamburger + logo --}}
+  <header class="mobile-bar">
+    <button type="button" class="menu-toggle" data-menu-toggle aria-controls="sidebar" aria-expanded="false" aria-label="Buka menu">
+      <span class="material-symbols-rounded">menu</span>
+    </button>
+    <div class="brand">
+      <div class="brand-icon"><span class="material-symbols-rounded">account_balance_wallet</span></div>
+      <span>uFinance</span>
+    </div>
+  </header>
+  <div class="sidebar-backdrop" data-menu-close></div>
+
   <div class="app-shell">
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
+      <button type="button" class="sidebar-close" data-menu-close aria-label="Tutup menu">
+        <span class="material-symbols-rounded">close</span>
+      </button>
       <div class="brand">
         <div class="brand-icon"><span class="material-symbols-rounded">account_balance_wallet</span></div>
         <span>uFinance</span>
@@ -67,6 +82,7 @@
   <script src="{{ asset('assets/js/tooltip.js') }}"></script>
   <script src="{{ asset('assets/js/api.js') }}"></script>
   <script src="{{ asset('assets/js/theme.js') }}"></script>
+  <script src="{{ asset('assets/js/menu.js') }}"></script>
   @stack('scripts')
 </body>
 </html>

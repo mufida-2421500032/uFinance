@@ -82,12 +82,12 @@ async function renderTransactions() {
   const transactions = await FinanceAPI.transactions();
   body.innerHTML = transactions.length ? transactions.map((tx) => `
     <tr>
-      <td><span class="u-badge ${tx.type === 'income' ? 'u-badge--income' : 'u-badge--expense'}">${tx.type}</span></td>
-      <td>${rupiah(tx.amount)}</td>
-      <td>${tx.category || 'Uncategorized'}</td>
-      <td>${tx.date}</td>
-      <td>${tx.note || '-'}</td>
-      <td>
+      <td data-label="Type"><span class="u-badge ${tx.type === 'income' ? 'u-badge--income' : 'u-badge--expense'}">${tx.type}</span></td>
+      <td data-label="Amount">${rupiah(tx.amount)}</td>
+      <td data-label="Category">${tx.category || 'Uncategorized'}</td>
+      <td data-label="Date">${tx.date}</td>
+      <td data-label="Note" class="col-note">${tx.note || '-'}</td>
+      <td data-label="Action" class="col-action">
         <div class="u-row-actions">
           <button type="button" class="u-btn u-btn--secondary u-btn--sm" data-edit="${tx.id}" data-tooltip="Edit this transaction">Edit</button>
           <button type="button" class="u-btn u-btn--danger u-btn--sm" data-delete="${tx.id}" data-tooltip="Delete permanently">Delete</button>
