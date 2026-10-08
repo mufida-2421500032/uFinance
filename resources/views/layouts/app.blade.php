@@ -41,8 +41,8 @@
         <form method="POST" action="{{ route('logout') }}">
           @csrf
           <button class="theme-switch" type="submit" data-tooltip="Masuk sebagai {{ auth()->user()->email }}" data-tooltip-pos="right">
-            <span class="theme-switch-label">Logout</span>
-            <span class="material-symbols-rounded theme-switch-icon">logout</span>
+            <span class="logout-label">Logout</span>
+            <span class="material-symbols-rounded logout-icon">logout</span>
           </button>
         </form>
       </div>
